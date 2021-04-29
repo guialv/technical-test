@@ -57,9 +57,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // No se requiere validar sitios cruzados
         httpSecurity.csrf().disable()
                 // Validar acceso a los endpoints de las operaciones
-                .authorizeRequests().anyRequest().permitAll()
-                .and().
-                        exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
+                .authorizeRequests().antMatchers("/operations*/**").authenticated()
+                // Permitir todas las demás rutas
+                .anyRequest().permitAll()
+                .and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
