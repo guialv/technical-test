@@ -1,0 +1,16 @@
+version: "3.5"
+
+services:
+  calculator:
+    build:
+      args:
+        APP_FILE_PATH: target/technical-test-0.0.1-SNAPSHOT.jar
+      context: /
+      dockerfile: ./Dockerfile
+    container_name: appgate-test-container
+    network_mode: "host"
+    expose:
+      - 8080
+    ports:
+      - 8080:8080
+    user: dockeruser:dockeruser
