@@ -4,6 +4,8 @@ import com.ga.appgate.model.JwtRequest;
 import com.ga.appgate.model.JwtResponse;
 import com.ga.appgate.security.JwtTokenUtil;
 import com.ga.appgate.security.JwtUserDetailsService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin
+@Api( tags = "Administrador de Sesiones")
 public class JwtAuthenticationController {
 
     private final AuthenticationManager authenticationManager;
@@ -34,6 +37,7 @@ public class JwtAuthenticationController {
     }
 
     @PostMapping(value = "/login")
+    @ApiOperation(value = "Generar token de sesión")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
